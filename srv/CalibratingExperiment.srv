@@ -1,0 +1,4 @@
+bool request_experiment
+---
+float32[] data
+builtin_interfaces/Time[] stamp
