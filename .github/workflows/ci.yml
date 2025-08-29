@@ -25,19 +25,30 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repository 
         uses: actions/checkout@v4
+      
+      # ROS GPG key
+      - name: Install fresh ROS GPG key
+        run: |
+          sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
+            -o /usr/share/keyrings/ros-archive-keyring.gpg
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
+            http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" \
+            | sudo tee /etc/apt/sources.list.d/ros2-latest.list > /dev/null
+          sudo apt-get update
 
       #1. Install ROS 2 and colcon
       - name: Set up ROS 2 Humble
         uses: ros-tooling/setup-ros@0.7.1
         with:
           required-ros-distributions: humble
+          skip-rosdep-key: true
 
       # 2-4. Build & test the workspace
       - name: colcon build + test
         uses: ros-tooling/action-ros-ci@0.3.4
         with:
-          package-name: emg_grip_interfaces     # space-separated list if you have several
-          target-ros2-distro: humble            # same distro set in setup-ros
+          package-name: emg_grip_interfaces
+          target-ros2-distro: humble
           # optional: pass extra colcon args
           colcon-defaults: |
             {
