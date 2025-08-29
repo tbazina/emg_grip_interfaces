@@ -50,11 +50,6 @@ jobs:
           package-name: emg_grip_interfaces
           target-ros2-distro: humble
           # optional: pass extra colcon args
-          colcon-defaults: |
-            {
-              "build": { "mixin": ["release"], "symlink-install": true },
-              "test":  { "mixin": ["coverage"] }
-            }
 
       # 5. Always keep the logs
       - name: Upload colcon logs
