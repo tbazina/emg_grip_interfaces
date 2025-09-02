@@ -15,7 +15,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Emg.msg"
   "msg/Fft.msg"
   "msg/GripForce.msg"
-  "srv/CalibratingExperiment.srv"
+  "srv/CalibrationExperiment.srv"
   DEPENDENCIES std_msgs builtin_interfaces
 )
 
